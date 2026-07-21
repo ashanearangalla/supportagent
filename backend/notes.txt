@@ -1,0 +1,8 @@
+pip install -r requirements.txt #install from requirement.txt
+
+# to run
+uvicorn main:app --reload
+
+
+# activarte venv
+.venv\Scripts\Activate
