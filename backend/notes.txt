@@ -6,3 +6,11 @@ uvicorn main:app --reload
 
 # activarte venv
 .venv\Scripts\Activate
+
+
+cd backend
+.venv\Scripts\Activate
+# after changing a model:
+alembic revision --autogenerate -m "describe the change"
+# review the generated file in alembic/versions/, then:
+alembic upgrade head
