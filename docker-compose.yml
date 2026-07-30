@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres
+    container_name: dbsupportpg
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "123"
+      POSTGRES_DB: postgres
+    ports:
+      - "5431:5432"
+    volumes:
+      - dbsupportpg_data:/var/lib/postgresql/18/data
+
+volumes:
+  dbsupportpg_data:
