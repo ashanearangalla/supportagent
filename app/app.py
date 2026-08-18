@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+from .services.orders import get_order_detail
 from .database import get_db, metadata, get_columns, FORBIDDEN_TABLES
 
 
@@ -55,3 +56,10 @@ def sample_products(limit: int = 5, db: Session = Depends(get_db)):
     stmt = select(*columns).limit(limit)
     rows = db.execute(stmt).mappings().all()
     return {"count": len(rows), "rows": [dict(r) for r in rows]}
+
+@app.get("/debug/orders/{order_id}/detail")
+def order_detail(order_id: int, db: Session = Depends(get_db)):
+    detail = get_order_detail(db, order_id)
+    if not detail:
+        raise HTTPException(status_code=404, detail="Order not found")
+    return detail
